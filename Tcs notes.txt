@@ -1,0 +1,233 @@
+Getting started with Git:
+
+what is Vcs?
+Version control system in database(repository)
+
+Types of Vcs:
+1. Local vcs
+2. centralised vcs
+3. distributed vcs - Git Tool
+
+
+Types of Repo -
+1. local repo
+2. remote repo
+
+Best Practices:
+1. frequent commits
+2. make detailed notes while committing
+3. Review changes -- staging area
+4. branching
+5. latest version 
+
+Software installation-- all done
+Git bash -- https://git-scm.com/downloads/win
+git --version
+
+
+What is Git?
+
+Git initialisation -- git init
+check the current status-- git status
+git configuration lists --
+git config --list
+git config --global --list 
+
+
+Adding properties at global level:
+add user name --> git config --global user.name "bhavna"
+add user email --> git config --global user.email "bhavna8483@gmail.com"
+
+
+Remove properties:
+git config --unset user.mail
+
+
+Git Architecture:
+git add filename
+git commit -m "commit message"
+
+
+Staging & committing together: git commit -am "commit message"
+this cmd willnot work for untracked files
+
+.gitignore file 
+
+Git Comparision:
+1. unstaged --> git diff
+2. staged --> git diff --staged
+3. branches --> git diff branch1 branch2
+
+
+Git Undoing changes:
+1. unstaged: git checkout filename
+2. staged: git reset filename  --> git checkout filename
+3. committed: git revert commitId --> it will always create a new commit with reverted changes
+	      git reset commitId --> it will take us back to the unstaged area, now we have to decide what to be done, we lose the history
+
+
+vi editor -->
+to edit --> shft + i
+to save & exit --> ESC + enter :wq 
+
+deletion a file --> git rm file
+		 git add .
+		 git commit -m "dleeted a file"
+
+
+Branching and Merging
+Types of bracnhes:
+1. Local branch
+2. Remote branch
+
+
+list all the branches: git branch
+create new branch: git branch branchName
+switch to the branch: git checkout branchName
+to rname the branch: git branch -m old_name new_name
+git branch --help
+deleting a remote branc: git push -delete origin branchName
+			git branch -d branchName
+
+shortcut command for creating and switching to the branch: git checkout -b branchName
+
+Comparing the branches: git diff branch1 branch2 --name-only
+
+Combining the changes from test branch: git merge master test
+git merge --abort
+git merge --continue
+
+git stash
+git stash list
+git stash apply
+git stash apply stashId
+git stash pop  --> restore the recent changes and drop the stash
+git stash pop stashId
+git show stashId
+git stash drop stashId  --> discard the stashed changes
+
+stash@{0}
+stash@{1}
+stash@{2}
+
+git reflog
+git checkout -b newbranch <commitId>
+
+Merging --
+1. Fast forward
+2. recursive
+3. octupus
+4. ours
+5. subtree
+6. Resolve
+
+
+Rebasing: It will combine the changs from different branches
+git rebase branchName
+git rebase --abort
+git rebase --continue
+
+m1 - m2 - m3 - m4
+
+m1 - m2 - m3 - f1 - f2 - m4 
+
+Squash:		
+Interactive rebasing: git rebase -i HEAD~3
+
+Cherry-pick: git cherry-pick commitID
+we can apply only specific commits to the branch instead of combining all the changes from the branch.
+
+Merge conflicts:
+
+Tags:
+
+Task 1: I have committed a file and after that I want to remove it from the repository. Pls try this out
+For example: sample.txt / gitignorefile I want to remove this file from repo
+Answer: git rm --cached fileName
+
+
+Task 2: firstly create a test branch
+1. create  a new commit as "commit 1" to master branch
+2. switch to test branch and make changes
+3. do the comparision between both the branches --> git diff master test --name-only
+4. to get the changes from master to test branch, let us do the rebase --> git rebase master
+5. check the logs --> git log --oneline
+6. switch back to master branch and do the comparision between both the branches
+7. do the comparision between both the branches --> git diff master test --name-only
+8. do the merge in master --> git merge test
+9. check the logs --> git log --oneline
+
+what strategy it has used while merging? 
+Fast forward
+
+Scenario 1: same file different line will make changes while merging
+dev commit1
+master commit2
+
+No conflict with Recursive merge strategy 
+
+Scenario 2: same file and same line will make the changes 
+master commit1
+dev comit2
+
+Conflict occurs --> rsolve it manually or use the abort commands
+
+
+Tags:
+git tag -a tagname -m message  --> it will add the tag to the lastest commit
+git tag -a tagname commitId -m tagmessage   --> to add tags with specific commit
+git checkout tagname --> this will modify a particular tag version
+git tag -d tagname  --> to delete a tag
+git ls-remote --tags --> list all the remote tags
+git push origin :tagname   --> delete a remote tag
+
+git push origin --tags   --> push all the local tags to remote
+
+
+GitHub -->  github account https://github.com/
+
+git remote add origin github_url
+git push origin master
+git pull origin master
+git remote -v
+
+option 1:
+Lets connect local with remote repo
+1. create  a remote repo on GitHub account
+2. try adding a file over remote repo
+3. go to the local repo --> check the status and make sure everything is commited and working tree is clean
+4. connect remote with local repo --> git remote add origin remote_repo_url
+5. cross check whether its configured the corrct github url or not --> git remote -v
+5. git push origin master --> it will push all your local changes to remote repo
+6. Go back to the remote repo over github, you can find all the local changes there available.
+
+Option 2:
+we can make a copy of remote repo on local repo
+1. git clone command
+2. will make the folder with name remote repo and then will clone it
+3. go to the git bash inside your foler and execute the cmd --> git clone github_url
+4. you can check a folder will be crated with remote repo name
+5. moveinside the remote rpo folder and start working with it.
+6. make a new file, stage it and commit it then push the changs to remote repo
+
+
+Clone -- make a copy of remote repo on local system 
+Fork -- make a copy of remote repo under your github user account.
+
+How to give user the access control -- Collaborator
+
+Creating Organizations -- Tcs-India
+2. added members to it
+3. added repository
+4. Member repository permissions - Read, Triage, Write, Admin, Maintain
+
+List all remote and local branches: git branch -a
+pull the changes from remote to local repo: git pull origin brancName
+compare local branch with remote branch: git diff localbranch remotebranch_path
+					 git diff master remotes/origin/bugfix --name-only
+
+GitHub Fork
+Pull Requests
+Settings GitHub
+Security Protocols
+clone with ssh 
