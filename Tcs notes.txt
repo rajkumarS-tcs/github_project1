@@ -226,8 +226,19 @@ pull the changes from remote to local repo: git pull origin brancName
 compare local branch with remote branch: git diff localbranch remotebranch_path
 					 git diff master remotes/origin/bugfix --name-only
 
+
 GitHub Fork
 Pull Requests
 Settings GitHub
 Security Protocols
-clone with ssh 
+clone with ssh , https
+Git workflows
+
+Pull Requests-- 
+Scenario: Remote repo with GitHub
+	  create new branch in github and add some new files with changes to it and commit it
+	  will go to pull rquest tab in github and create a new pull rquest for reviwing the branch changes
+	  Add the reviewwerss and assignees to the pull rquest
+	  Merge and close the pull request
+
+Scenario: Local repo we are going to make branchs and then will go to remote branch and see how pull request will work
